@@ -21,6 +21,9 @@ import com.alibaba.dubbo.demo.user.facade.RegistrationResult;
 import com.alibaba.dubbo.demo.user.facade.UserRestService;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +41,7 @@ import javax.ws.rs.core.MediaType;
 @Path("users")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
+@Api(value = "UserService")
 public class UserRestServiceImpl implements UserRestService {
 
 //    private static final Logger logger = LoggerFactory.getLogger(UserRestServiceImpl.class);
@@ -50,7 +54,8 @@ public class UserRestServiceImpl implements UserRestService {
 
     @GET
     @Path("{id : \\d+}")
-    public User getUser(@PathParam("id") Long id/*, @Context HttpServletRequest request*/) {
+    @ApiOperation(value = "getUser")
+    public User getUser(@ApiParam(value = "id") @PathParam("id") Long id/*, @Context HttpServletRequest request*/) {
         // test context injection
 //        System.out.println("Client address from @Context injection: " + (request != null ? request.getRemoteAddr() : ""));
 //        System.out.println("Client address from RpcContext: " + RpcContext.getContext().getRemoteAddressString());
